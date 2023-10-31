@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<BinplaceSource>$(BaseIntermediateOutputPath)\amd64</BinplaceSource>
+	<BinplaceDest>$(DistribPath)\app\WrapperTester</BinplaceDest>
+	  <Nullable>enable</Nullable>
+	  <Platforms>AnyCPU;ARM64;x64</Platforms>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<APServiceConfigFiles Include="CosmosExeWrapperScript.ps1" />
+	</ItemGroup>
+	<Target Name="CopyAPServiceConfigFiles" AfterTargets="Build">
+		<Copy SourceFiles="@(APServiceConfigFiles)" DestinationFolder="$(BinplaceDest)" SkipUnchangedFiles="true" />
+	</Target>
+	<ItemGroup>
+		<Artifact Include="$(BinplaceSource)" DestinationFolder="$(BinplaceDest)" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.PowerShell.SDK" Version="6.2.7" />
+	  <PackageReference Include="System.Management.Automation" Version="6.2.7" />
+	
+	</ItemGroup>
+</Project>
